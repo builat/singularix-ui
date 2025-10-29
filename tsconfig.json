@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/lib/*": ["./lib/*"],
+      "@/src/*": ["./src/*"]
+    },
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "checkJs": false,
+    "outDir": "./build",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "module": "esnext",
+    "target": "es2018",
+    "jsx": "react",
+    "preserveSymlinks": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*", "./lib/**/*", "./services/**/*"],
+  "exclude": ["node_modules"]
+}
