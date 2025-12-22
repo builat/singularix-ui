@@ -46,10 +46,10 @@ export function LedRoomCard() {
 
   return (
     <SimpleCard
-      title="Select color for room led"
+      title="Custom"
       TopExtraElement={<RefreshStatus onClick={refreshStatus} />}
     >
-      <Stack gap="md">
+      <Stack gap="sm">
         <Group justify="center">
           <ColorPicker color={color} setColor={setColor} />
           <SetColorBtn
