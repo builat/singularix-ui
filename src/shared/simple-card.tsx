@@ -15,7 +15,7 @@ export function SimpleCard({
 }: Props): React.ReactElement {
   return (
     <Card withBorder shadow="sm" p="lg">
-      <Stack gap="md">
+      <Stack gap="sm">
         <Group justify="space-between" align="center">
           <Title order={2}>{title}</Title>
           {TopExtraElement ? TopExtraElement : null}

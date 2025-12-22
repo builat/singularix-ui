@@ -11,7 +11,7 @@ export function RoomLightPage() {
     () => [
       { name: "Cyberpunk", hex: "#4d4100" },
       { name: "Red", hex: "#5c0000" },
-      { name: "Touch the grass", hex: "#105e00" },
+      { name: "Grass", hex: "#105e00" },
       { name: "Blue", hex: "#080073" },
       { name: "Anime", hex: "#390070" },
       { name: "Disable", hex: "#000000" },
@@ -28,7 +28,7 @@ export function RoomLightPage() {
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md" verticalSpacing="md">
         <Stack gap="sm">
           <Text fw={600}>Reserved colors</Text>
-          <SimpleGrid cols={{ base: 3, sm: 4, md: 2 }} spacing="sm">
+          <SimpleGrid cols={{ base: 2, sm: 2, md: 4 }} spacing="sm">
             {reserved.map((c) => (
               <Button
                 key={c.hex}

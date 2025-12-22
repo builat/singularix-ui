@@ -1,10 +1,8 @@
-import React from "react";
 import "@mantine/core/styles.css";
 import "/src/shared/global.css";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { RoomLightPage } from "./pages";
-
-import { Outlet } from "react-router-dom";
 import {
   AppShell,
   Burger,
@@ -16,7 +14,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { NavbarMinimal } from "./shared/navbar/Navbar";
 
-export default function AppLayout() {
+export default function App() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -24,7 +22,7 @@ export default function AppLayout() {
     <AppShell
       header={{ height: 52 }}
       navbar={{
-        width: { sm: 100 },
+        width: { sm: 90 },
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
