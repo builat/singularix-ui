@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { SimpleCard } from "../shared";
-import { LedManager } from "./service/led-api-connector";
-import { ColorPicker, RefreshStatus, SetColorBtn } from "./components";
-import { STATUS_POLL_INTERVAL } from "./service/static";
+import { SimpleCard } from "@/src/shared";
+import { LedManager } from "../service/led-api-connector";
+import { ColorPicker, RefreshStatus, SetColorBtn } from ".";
+import { STATUS_POLL_INTERVAL } from "../service/static";
 import { Badge, Group, Stack } from "@mantine/core";
 
-const ledManager = new LedManager();
+const ledManager = LedManager.getInstance();
 
 export function LedRoomCard() {
   const [connected, setConnected] = useState(false);
