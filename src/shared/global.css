@@ -1,0 +1,11 @@
+:root {
+  --app-navbar-w: 80px;
+  --app-navbar-item: 50px;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --app-navbar-w: 72px;
+    --app-navbar-item: 46px;
+  }
+}

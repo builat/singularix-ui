@@ -1,16 +1,71 @@
 import React from "react";
-import { Container, Group, Stack, Title } from "@mantine/core";
-import { LedRoomCard } from "./led-manager/led-card";
+import "@mantine/core/styles.css";
+import "/src/shared/global.css";
+import { Routes, Route } from "react-router-dom";
+import { RoomLightPage } from "./pages";
 
-export default function App() {
+import { Outlet } from "react-router-dom";
+import {
+  AppShell,
+  Burger,
+  Group,
+  Title,
+  ScrollArea,
+  useMantineTheme,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { NavbarMinimal } from "./shared/navbar/Navbar";
+
+export default function AppLayout() {
+  const [opened, { toggle, close }] = useDisclosure(false);
+  const theme = useMantineTheme();
+
   return (
-    <Container size="sm" py="lg">
-      <Stack gap="lg">
-        <Group justify="space-between" align="center">
-          <Title order={2}>Room light manager</Title>
+    <AppShell
+      header={{ height: 52 }}
+      navbar={{
+        width: { sm: 100 },
+        breakpoint: "sm",
+        collapsed: { mobile: !opened },
+      }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <Group h="100%" px="sm" justify="space-between">
+          <Group>
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
+            <Title order={5}>Singularix Home</Title>
+          </Group>
         </Group>
-        <LedRoomCard />
-      </Stack>
-    </Container>
+      </AppShell.Header>
+
+      <AppShell.Navbar p="xs">
+        <AppShell.Section
+          grow
+          component={ScrollArea}
+          type="auto"
+          offsetScrollbars
+        >
+          <NavbarMinimal onNavigate={close} />
+        </AppShell.Section>
+      </AppShell.Navbar>
+
+      <AppShell.Main
+        style={{
+          background: theme.colors.dark[8],
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<RoomLightPage />}></Route>
+        </Routes>
+
+        <Outlet />
+      </AppShell.Main>
+    </AppShell>
   );
 }

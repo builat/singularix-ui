@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "../../../config";
-import { HTTP_METHODS, JSON_HEADERS } from "../../shared";
+import { API_BASE_URL } from "@/src/config";
+import { HTTP_METHODS, JSON_HEADERS } from "@/src/shared";
 import { hexToRgb } from "./hex2rgb";
 
 const methods = {
@@ -15,10 +15,19 @@ const methods = {
  *  - integration with effector
  */
 export class LedManager {
+  private static instance: LedManager | null = null;
+
   private connectionStatus: boolean;
 
-  constructor() {
+  private constructor() {
     this.connectionStatus = false;
+  }
+
+  static getInstance(): LedManager {
+    if (!LedManager.instance) {
+      LedManager.instance = new LedManager();
+    }
+    return LedManager.instance;
   }
 
   get isConnected(): boolean {
