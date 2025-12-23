@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { SimpleCard } from "@/src/shared";
 import { LedManager } from "../service/led-api-connector";
-import { ColorPicker, RefreshStatus, SetColorBtn } from ".";
-import { STATUS_POLL_INTERVAL } from "../service/static";
+import { ColorPicker, SetColorBtn } from ".";
 import { Badge, Group, Stack } from "@mantine/core";
 
 const ledManager = LedManager.getInstance();
 
-export function LedRoomCard() {
-  const [connected, setConnected] = useState(false);
+export function LedRoomCard({ connected }: { connected: boolean }) {
   const [color, setColor] = useState("#FF0000");
   const [busy, setBusy] = useState(false);
 
@@ -23,32 +21,8 @@ export function LedRoomCard() {
     }
   }
 
-  useEffect(() => {
-    let mounted = true;
-    const tick = async () => {
-      try {
-        const isConnected = await ledManager.getLedStatus();
-        if (mounted) setConnected(isConnected);
-      } catch {}
-    };
-    const id = setInterval(tick, STATUS_POLL_INTERVAL);
-    tick();
-    return () => {
-      mounted = false;
-      clearInterval(id);
-    };
-  }, []);
-
-  async function refreshStatus(): Promise<void> {
-    const status = await ledManager.getLedStatus();
-    setConnected(status);
-  }
-
   return (
-    <SimpleCard
-      title="Custom"
-      TopExtraElement={<RefreshStatus onClick={refreshStatus} />}
-    >
+    <SimpleCard title="Custom">
       <Stack gap="sm">
         <Group justify="center">
           <ColorPicker color={color} setColor={setColor} />
@@ -58,11 +32,7 @@ export function LedRoomCard() {
             sendColor={sendColor}
           />
         </Group>
-        <Group justify="left">
-          <Badge variant="light" color={connected ? "teal" : "red"} size="lg">
-            Status: {connected ? "Connected" : "Disconnected"}
-          </Badge>
-        </Group>
+        <Group justify="left"></Group>
       </Stack>
     </SimpleCard>
   );

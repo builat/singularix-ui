@@ -9,6 +9,4 @@ const INPUT_COLORS = [
   "#f53b57",
 ];
 
-const STATUS_POLL_INTERVAL = 3000;
-
-export { INPUT_COLORS, STATUS_POLL_INTERVAL };
+export { INPUT_COLORS };
