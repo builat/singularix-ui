@@ -3,14 +3,7 @@ import "/src/shared/global.css";
 import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { RoomLightPage } from "./pages";
-import {
-  AppShell,
-  Burger,
-  Group,
-  Title,
-  ScrollArea,
-  useMantineTheme,
-} from "@mantine/core";
+import { AppShell, Burger, Group, Title, useMantineTheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NavbarMinimal } from "./shared/navbar/Navbar";
 
@@ -43,12 +36,7 @@ export default function App() {
       </AppShell.Header>
 
       <AppShell.Navbar p="xs">
-        <AppShell.Section
-          grow
-          component={ScrollArea}
-          type="auto"
-          offsetScrollbars
-        >
+        <AppShell.Section grow>
           <NavbarMinimal onNavigate={close} />
         </AppShell.Section>
       </AppShell.Navbar>
