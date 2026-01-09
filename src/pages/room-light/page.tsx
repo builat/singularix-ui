@@ -8,7 +8,8 @@ import {
   reserved_colors as reserved,
   STATUS_POLL_INTERVAL,
 } from "./constants";
-
+import { AckToasts } from "@/src/shared/sse";
+import LogWindow from "./components/log-window";
 const ledManager = LedManager.getInstance();
 
 export function RoomLightPage() {
@@ -31,6 +32,7 @@ export function RoomLightPage() {
 
   return (
     <Box>
+      <AckToasts />
       <PageTitle connected={connected} />
       <SimpleGrid cols={GRID_SETTINGS} spacing="md" verticalSpacing="md">
         <ReservedColorsBlock
@@ -39,6 +41,7 @@ export function RoomLightPage() {
           setColor={ledManager.setLedColor}
         />
       </SimpleGrid>
+      <LogWindow />
     </Box>
   );
 }

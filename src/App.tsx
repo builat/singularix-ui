@@ -15,9 +15,12 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NavbarMinimal } from "./shared/navbar/Navbar";
-import { AckToasts } from "./shared/sse";
+import { API_BASE_URL } from "./config";
+import { useSse } from "./shared/hooks";
 
 export default function App() {
+  const _ = useSse(`${API_BASE_URL}/led/events`);
+
   const [opened, { toggle, close }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -31,7 +34,6 @@ export default function App() {
       }}
       padding="md"
     >
-      <AckToasts />
       <AppShell.Header>
         <Group h="100%" px="sm" justify="space-between">
           <Group>

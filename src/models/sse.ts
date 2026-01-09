@@ -1,4 +1,5 @@
 import { createDomain, sample } from "effector";
+import { RawNotification } from "../shared/sse/protocol-parser";
 
 const sse = createDomain("sse");
 
@@ -24,30 +25,34 @@ export const $sseConnected = sse
 
 // Last message + rolling buffer
 export const $lastEvent = sse
-  .createStore<string | null>(null)
-  .on(messageReceived, (_, m) => m);
+  .createStore<RawNotification | null>(null)
+  .on(messageReceived, (_, m) => JSON.parse(m));
 
 export const $events = sse
-  .createStore<string[]>([])
-  .on(messageReceived, (list, m) => [m, ...list].slice(0, 200))
+  .createStore<RawNotification[]>([])
+  .on(messageReceived, (list, m) => {
+    const parsedEv = JSON.parse(m);
+    list.unshift(parsedEv);
+    const cleanList = list.slice(0, 20); // keep last 20
+    return cleanList;
+  })
   .reset(stopSse);
 
-// Optional: keep last ACK only
 export const $lastAck = sse
-  .createStore<string | null>(null)
-  .on(customEventReceived, (prev, e) => (e.type === "ack" ? e.data : prev));
+  .createStore<RawNotification | null>(null)
+  .on(customEventReceived, (prev, e) =>
+    e.type === "ack" ? JSON.parse(e.data) : prev
+  );
 
 // Backoff state
 const backoffReset = sse.createEvent();
 const backoffBump = sse.createEvent();
 export const $backoffMs = sse
-  .createStore(1000) // start at 1s
+  .createStore(1000)
   .on(backoffReset, () => 1000)
   .on(backoffBump, (ms) => Math.min(ms * 2, 15000));
 
-// Effect that opens the EventSource and manages lifecycle
 export const startSseFx = sse.createEffect(async (url: string) => {
-  // We manage reconnection from the outside; this effect opens once.
   return new Promise<void>((resolve) => {
     let closed = false;
     const es = new EventSource(url, { withCredentials: false });
@@ -61,33 +66,26 @@ export const startSseFx = sse.createEffect(async (url: string) => {
       messageReceived(ev.data);
     };
 
-    // listen to custom event types (e.g., server yields .name("ack"))
     const onAck = (ev: MessageEvent) =>
       customEventReceived({ type: "ack", data: ev.data });
     es.addEventListener("ack", onAck);
 
     es.onerror = (err) => {
-      // Close and mark error; the reconnection policy lives outside this effect
       es.close();
       if (!closed) errored(err ?? new Error("sse error"));
       resolve(); // end this effect call so outer logic can schedule a retry
     };
 
-    // Cleanup when stopSse is called while the effect is active
     const unsub = stopSse.watch(() => {
       closed = true;
       es.close();
       resolve();
     });
 
-    // Also cleanup when completed for any reason
     const teardown = () => {
       es.removeEventListener("ack", onAck);
       unsub();
     };
-    // When effect finishes (resolve()), run teardown
-    // (We rely on the fact that we resolve exactly once in any path)
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     Promise.resolve().then(() => teardown);
   });
 });

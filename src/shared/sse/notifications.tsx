@@ -1,13 +1,28 @@
 import { useEffect } from "react";
 import { useUnit } from "effector-react";
-import { $lastAck } from "@/src/models/sse";
+import { $lastEvent } from "@/src/models/sse";
 import { notifications } from "@mantine/notifications";
+import { parseSseEvent } from "./protocol-parser";
 
 export function AckToasts() {
-  const lastAck = useUnit($lastAck);
+  const last = useUnit($lastEvent);
+
   useEffect(() => {
-    if (lastAck)
-      notifications.show({ title: "ACK", message: lastAck, color: "teal" });
-  }, [lastAck]);
+    if (!last) return;
+
+    try {
+      const sseMsg = parseSseEvent(last);
+      if (sseMsg?.status) {
+        notifications.show({
+          title: "[!] BLE",
+          message: `Error: ${sseMsg?.command} ${
+            sseMsg?.detail ?? "Command failed"
+          }`,
+          color: "red",
+        });
+      }
+    } catch {}
+  }, [last]);
+
   return null;
 }
