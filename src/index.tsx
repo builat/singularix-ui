@@ -17,7 +17,7 @@ const rootDiv = document.getElementById("root");
 ReactDOM.createRoot(rootDiv!).render(
   <React.StrictMode>
     <MantineProvider theme={theme} defaultColorScheme="dark">
-      <Notifications position="top-right" />
+      <Notifications position="top-right" limit={1} />
       <BrowserRouter>
         <App />
       </BrowserRouter>
