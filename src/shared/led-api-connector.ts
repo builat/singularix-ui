@@ -1,10 +1,17 @@
 import { API_BASE_URL } from "@/src/config";
 import { HTTP_METHODS, JSON_HEADERS } from "@/src/shared";
-import { hexToRgb } from "./hex2rgb";
+import { hexToRgb } from "../pages/room-light/service/hex2rgb";
 
+const LED_PREFIX = "/led";
+const LED_API_BASE_URL = `${API_BASE_URL}${LED_PREFIX}`;
 const methods = {
   status: "/ble-status",
-  setColor: "/set-full-color",
+  setColor: "/color",
+  setBrightness: "/brightness",
+  debug: "/debug",
+  setRainbow: "/rainbow",
+  setRange: "/range",
+  subscribeSSE: "/events",
 };
 
 /**
@@ -44,10 +51,18 @@ export class LedManager {
 
   async setLedColor(hexColor: string): Promise<void> {
     const rgbColor = hexToRgb(hexColor);
-    const res = await fetch(`${API_BASE_URL}${methods.setColor}`, {
+    const res = await fetch(`${LED_API_BASE_URL}${methods.setColor}`, {
       method: HTTP_METHODS.POST,
       headers: JSON_HEADERS,
       body: JSON.stringify(rgbColor),
+    });
+    if (!res.ok) throw new Error("Failed to set LED color");
+  }
+
+  async setRainbow(): Promise<void> {
+    const res = await fetch(`${LED_API_BASE_URL}${methods.setRainbow}`, {
+      method: HTTP_METHODS.POST,
+      headers: JSON_HEADERS,
     });
     if (!res.ok) throw new Error("Failed to set LED color");
   }

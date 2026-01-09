@@ -1,1 +1,1 @@
-export { LedManager } from "./led-api-connector";
+export { LedManager } from "../../../shared/led-api-connector";

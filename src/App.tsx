@@ -1,11 +1,21 @@
 import "@mantine/core/styles.css";
 import "/src/shared/global.css";
 import React from "react";
+import appLogo from "@/src/assets/icon_60pt.png";
+import { Image } from "@mantine/core";
 import { Routes, Route, Outlet } from "react-router-dom";
-import { RoomLightPage } from "./pages";
-import { AppShell, Burger, Group, Title, useMantineTheme } from "@mantine/core";
+import { RoomLightPage, StatusPage } from "./pages";
+import {
+  AppShell,
+  Burger,
+  Group,
+  Title,
+  useMantineTheme,
+  Flex,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NavbarMinimal } from "./shared/navbar/Navbar";
+import { AckToasts } from "./shared/sse";
 
 export default function App() {
   const [opened, { toggle, close }] = useDisclosure(false);
@@ -21,6 +31,7 @@ export default function App() {
       }}
       padding="md"
     >
+      <AckToasts />
       <AppShell.Header>
         <Group h="100%" px="sm" justify="space-between">
           <Group>
@@ -30,7 +41,17 @@ export default function App() {
               hiddenFrom="sm"
               size="sm"
             />
-            <Title order={5}>Singularix Home</Title>
+            <Flex
+              gap="xs"
+              justify="flex-start"
+              align="center"
+              direction="row"
+              wrap="wrap"
+              mb="md"
+            >
+              <Image src={appLogo} alt="Singularix Logo" w={50} h={50} />
+              <Title order={5}>Singularix Home</Title>
+            </Flex>
           </Group>
         </Group>
       </AppShell.Header>
@@ -48,6 +69,7 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<RoomLightPage />}></Route>
+          <Route path="/status" element={<StatusPage />}></Route>
         </Routes>
 
         <Outlet />

@@ -13,7 +13,7 @@ export const MenuNavDict: MenuNavItem[] = [
   {
     Icon: IconDeviceDesktopAnalytics,
     label: "Full state",
-    path: "/full-state",
+    path: "/status",
   },
   { Icon: IconCalendarStats, label: "Schedule", path: "/schedule" },
   { Icon: IconFingerprint, label: "Remote control", path: "/remote-control" },

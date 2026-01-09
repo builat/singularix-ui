@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button } from "@mantine/core";
+import { Box, Button, Group } from "@mantine/core";
+import { set } from "ramda";
 type Props = {
   btnConfig: { name: string; hex: string };
   setColor: (color: string) => void;
@@ -40,6 +41,39 @@ function ReservedColorButton({ btnConfig, setColor }: Props) {
     </Button>
   );
 }
+function RainbowKnob() {
+  return (
+    <Box
+      component="span"
+      style={{
+        width: 14,
+        height: 14,
+        borderRadius: 999,
+        display: "inline-block",
+        background: "conic-gradient(red, #ff0, lime, cyan, blue, magenta, red)",
+        boxShadow:
+          "0 0 0 1px rgba(255,255,255,.2) inset, 0 0 6px rgba(0,0,0,.4)",
+      }}
+      aria-hidden
+    />
+  );
+}
+type RainbowButtonProps = {
+  setRainbow: () => Promise<void>;
+};
+function RainbowButton({ setRainbow }: RainbowButtonProps) {
+  return (
+    <Button
+      variant="light"
+      leftSection={<RainbowKnob />}
+      onClick={setRainbow}
+      styles={preservedStyle.button}
+      aria-label="Activate rainbow effect"
+    >
+      Rainbow
+    </Button>
+  );
+}
 
 type MRCProps = {
   reserved: ReservedColor[];
@@ -55,4 +89,4 @@ function MapReservedColorButtons({ reserved, setColor }: MRCProps) {
     </>
   );
 }
-export { MapReservedColorButtons, ReservedColorButton };
+export { MapReservedColorButtons, ReservedColorButton, RainbowButton };

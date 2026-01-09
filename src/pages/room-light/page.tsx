@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, SimpleGrid } from "@mantine/core";
 import { LedManager } from "./service";
-import { PageTitle, LedRoomCard, ReservedColorsBlock } from "./components";
+import { PageTitle, ReservedColorsBlock } from "./components";
 
 import {
   PAGE_GRID as GRID_SETTINGS,
@@ -35,9 +35,9 @@ export function RoomLightPage() {
       <SimpleGrid cols={GRID_SETTINGS} spacing="md" verticalSpacing="md">
         <ReservedColorsBlock
           reserved={reserved}
+          setRainbow={ledManager.setRainbow}
           setColor={ledManager.setLedColor}
         />
-        <LedRoomCard connected={connected} />
       </SimpleGrid>
     </Box>
   );
