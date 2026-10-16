@@ -14,13 +14,6 @@ const methods = {
   subscribeSSE: "/events",
 };
 
-/**
- * Class to manage interactions with raspberry pi led api
- * TODO: implement--
- *  - SSE
- *  - Error handling/retries
- *  - integration with effector
- */
 export class LedManager {
   private static instance: LedManager | null = null;
 
@@ -65,5 +58,14 @@ export class LedManager {
       headers: JSON_HEADERS,
     });
     if (!res.ok) throw new Error("Failed to set LED color");
+  }
+
+  async setBrightness(brightness: number): Promise<void> {
+    const res = await fetch(`${LED_API_BASE_URL}${methods.setBrightness}`, {
+      method: HTTP_METHODS.POST,
+      headers: JSON_HEADERS,
+      body: JSON.stringify(brightness),
+    });
+    if (!res.ok) throw new Error("Failed to set LED brightness");
   }
 }

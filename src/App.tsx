@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import "/src/shared/global.css";
+import "@/src/shared/global.css";
 import React from "react";
 import appLogo from "@/src/assets/icon_60pt.png";
 import { Image } from "@mantine/core";

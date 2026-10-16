@@ -6,3 +6,4 @@ export {
 export { LedConnectionBadge } from "./led-connection-badge";
 export { PageTitle } from "./page-title";
 export { ReservedColorsBlock } from "./reserved-colors-block";
+export { BrightnessBlock } from "./brightness-block";
