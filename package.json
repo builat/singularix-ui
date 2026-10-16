@@ -15,26 +15,26 @@
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.14.0",
-    "@mantine/core": "^8.3.11",
-    "@mantine/hooks": "^8.3.11",
-    "@mantine/notifications": "^8.3.11",
-    "@tabler/icons-react": "^3.36.1",
-    "@types/ramda": "^0.31.1",
+    "@mantine/core": "^9.7.2",
+    "@mantine/hooks": "^9.7.2",
+    "@mantine/notifications": "^9.7.2",
+    "@tabler/icons-react": "^3.49.0",
+    "@types/ramda": "^0.32.0",
     "effector": "^23.4.4",
     "effector-react": "^23.3.0",
     "ramda": "^0.32.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-router-dom": "^7.11.0"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.7.2",
-    "@rsbuild/plugin-react": "^1.4.2",
-    "@rspack/cli": "^1.7.1",
-    "@rspack/core": "^1.7.1",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
+    "@rsbuild/core": "^2.2.13",
+    "@rsbuild/plugin-react": "^2.1.1",
+    "@rspack/cli": "^2.2.9",
+    "@rspack/core": "^2.2.9",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/react-router-dom": "^5.3.3",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   }
 }

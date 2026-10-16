@@ -15,7 +15,7 @@
     "target": "es2018",
     "jsx": "react",
     "preserveSymlinks": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "strict": true,
     "useUnknownInCatchVariables": false,

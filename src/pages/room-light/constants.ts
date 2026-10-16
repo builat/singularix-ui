@@ -14,9 +14,13 @@ const reserved_colors: ReservedColor[] = [
 ];
 const STATUS_POLL_INTERVAL = 3000;
 
+// Matches the 0-255 byte range the LED firmware uses per channel
+const BRIGHTNESS = { min: 0, max: 255, default: 255 };
+
 export {
   PAGE_GRID,
   reserved_colors,
   STATUS_POLL_INTERVAL,
   RESERVED_COLORS_GRID,
+  BRIGHTNESS,
 };
